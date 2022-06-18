@@ -1,4 +1,5 @@
 using UnityEngine; //Required for Unity connection
+using UnityEngine.Audio;
 //Require a CharacterController to be attached to the Camera
 [RequireComponent(typeof(CharacterController))]
 public class CameraMovement : MonoBehaviour
@@ -15,6 +16,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private GameObject _pausePanel;
     //GameObject for Shark prefab in heirarchy
     [SerializeField] private GameObject _sharkPrefab;
+    //Audio source for control of music
+    [SerializeField] private AudioSource _audioSource;
     #endregion
     #region Movement & Controls
     void Start()
@@ -68,6 +71,9 @@ public class CameraMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
+            //Play and loop the music
+            _audioSource.Play();
+            _audioSource.loop = true;
         }
         //Else pause time and show unlocked cursor
         else
@@ -75,6 +81,8 @@ public class CameraMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
+            //Stop the music on pause
+            _audioSource.Stop();
         }
     }
     //EndGame function to be activated by button on pause menu
@@ -87,5 +95,5 @@ public class CameraMovement : MonoBehaviour
         //Quit the game
         Application.Quit();
     }
-    #endregion
+     #endregion
 }
