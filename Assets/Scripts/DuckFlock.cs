@@ -70,7 +70,7 @@ public class DuckFlock : MonoBehaviour
             //If we are going to move quicker than the max speed bring speed back down
             if (move.sqrMagnitude > _squareMaxSpeed)
             {
-                move = move.normalized * maxSpeed;
+                move = move.normalized * maxSpeed * Time.deltaTime;
             }
             //Apply movement
             agent.Move(move);
